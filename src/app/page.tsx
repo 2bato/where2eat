@@ -19,7 +19,7 @@ export default function Home() {
   const [displayName, setDisplayName] = useState<string>("");
   const [displayRating, setDisplayRating] = useState<string>("");
   const [displayPhoto, setDisplayPhoto] = useState<string>(
-    "https://media1.tenor.com/m/dimT0JAAMb4AAAAC/cat-cute.gif"
+    "https://media1.tenor.com/m/GOabrbLMl4AAAAAd/plink-cat-plink.gif"
   );
   const [rating, setRating] = useState<number>(0);
   const [price, setPrice] = useState<string>("");

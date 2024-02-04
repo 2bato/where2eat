@@ -38,7 +38,7 @@ export default async function NearbySearch(
           latitude: location?.latitude,
           longitude: location?.longitude,
         },
-        radius: 800.0,
+        radius: 1000.0,
       },
     },
   };
