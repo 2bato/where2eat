@@ -1,12 +1,13 @@
 "use client";
 import Filters from "@/components/filter";
 import NearbySearch from "@/utils/nearby-search";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 
 interface Result {
   displayName: string;
   photoUrl: string;
-  rating: number;
+  rating: string;
 }
 
 export default function Home() {
@@ -14,18 +15,19 @@ export default function Home() {
     latitude: number;
     longitude: number;
   } | null>(null);
-
   const [fetchLocation, setFetchLocation] = useState<boolean>(true);
   const [displayName, setDisplayName] = useState<string>("");
-  const [displayRating, setDisplayRating] = useState<number>(0);
-  const [displayPhoto, setDisplayPhoto] = useState<string>("");
+  const [displayRating, setDisplayRating] = useState<string>("");
+  const [displayPhoto, setDisplayPhoto] = useState<string>(
+    "https://media1.tenor.com/m/dimT0JAAMb4AAAAC/cat-cute.gif"
+  );
   const [rating, setRating] = useState<number>(0);
   const [price, setPrice] = useState<string>("");
   const [cuisine, setCuisine] = useState<string>("restaurant");
 
   const handleButtonClick = async () => {
     setFetchLocation(true);
-    const result: Result = await NearbySearch(cuisine, rating, price);
+    const result: Result = await NearbySearch(cuisine, rating, price, location);
     setDisplayName(result.displayName);
     setDisplayRating(result.rating);
     setDisplayPhoto(result.photoUrl);
@@ -59,12 +61,19 @@ export default function Home() {
       <div>
         {" "}
         {displayName} {displayRating}{" "}
-        <img src={displayPhoto} alt="Image Description" />
+        <Image
+          src={displayPhoto}
+          alt="Image Description"
+          width={500}
+          height={500}
+        />
       </div>
       <button
         onClick={handleButtonClick}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      ></button>
+      >
+        Roll the dice
+      </button>
       {location?.latitude},{location?.longitude}
       <Filters onFilterChange={handleFilterChange} />
     </main>

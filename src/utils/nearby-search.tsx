@@ -14,13 +14,19 @@ interface Place {
 interface Result {
   displayName: string;
   photoUrl: string;
-  rating: number;
+  rating: string;
+}
+
+interface Location {
+  latitude: number;
+  longitude: number;
 }
 
 export default async function NearbySearch(
   cuisine: string,
   rating: number,
-  price: string
+  price: string,
+  location: Location | null
 ): Promise<Result> {
   const apiKey = "AIzaSyAXpRKeA6lCOiYOwwnJbx7j9GUvBig8MLw";
   const request = {
@@ -29,8 +35,8 @@ export default async function NearbySearch(
     locationRestriction: {
       circle: {
         center: {
-          latitude: 49.27911615277976,
-          longitude: -123.12473485914015,
+          latitude: location?.latitude,
+          longitude: location?.longitude,
         },
         radius: 800.0,
       },
@@ -73,7 +79,7 @@ export default async function NearbySearch(
     const result: Result = {
       displayName: filteredData[randomIndex].displayName.text,
       photoUrl: imageURL,
-      rating: filteredData[randomIndex].rating,
+      rating: filteredData[randomIndex].toString(),
     };
 
     return result;
