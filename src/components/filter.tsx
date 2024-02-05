@@ -84,6 +84,17 @@ export default function Filters({ onFilterChange }: filterProps) {
     "mediterranean_restaurant",
     "vietnamese_restaurant",
     "sushi_restaurant",
+    "pizza_restaurant",
+    "breakfast_restaurant",
+    "brunch_restaurant",
+    "korean_restaurant",
+    "barbecue_restaurant",
+    "american_restaurant",
+    "seafood_restaurant",
+    "vegan_restaurant",
+    "ramen_restaurant",
+    "lebanese_restaurant",
+    "indonesian_restaurant",
   ];
   return (
     <div className="flex flex-col items-center mb-8 space-y-2">
@@ -93,7 +104,9 @@ export default function Filters({ onFilterChange }: filterProps) {
             <button
               key={option}
               className={`text-gray-900 text-sm rounded-2xl px-4 py-2 ${
-                ratings.includes(option) ? "bg-green-400/75 shadow-lg" : "bg-gray-50"
+                ratings.includes(option)
+                  ? "bg-green-400/75 shadow-lg"
+                  : "bg-gray-50"
               }`}
               onClick={() => {
                 handleRatingChange(option);
@@ -111,6 +124,7 @@ export default function Filters({ onFilterChange }: filterProps) {
             <option value="1000">1 km</option>
             <option value="500">500 m</option>
             <option value="2000">2 km</option>
+            <option value="5000">5 km</option>
           </select>
         </div>
         <div className="flex flex-row space-x-4">
@@ -118,7 +132,9 @@ export default function Filters({ onFilterChange }: filterProps) {
             <button
               key={option}
               className={`text-gray-900 text-sm rounded-2xl px-4 py-2 ${
-                prices.includes(option) ? "bg-green-400/75 shadow-lg" : "bg-gray-50 "
+                prices.includes(option)
+                  ? "bg-green-400/75 shadow-lg"
+                  : "bg-gray-50 "
               }`}
               onClick={() => {
                 handlePriceChange(option);
@@ -137,7 +153,9 @@ export default function Filters({ onFilterChange }: filterProps) {
           <button
             key={option}
             className={`text-gray-900 text-sm rounded-2xl p-2.5 ${
-              cuisines.includes(option) ? "bg-green-400/75 shadow-lg" : "bg-gray-50 "
+              cuisines.includes(option)
+                ? "bg-green-400/75 shadow-lg"
+                : "bg-gray-50 "
             }`}
             onClick={() => {
               handleCuisineChange(option);
