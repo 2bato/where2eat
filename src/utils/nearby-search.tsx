@@ -104,8 +104,8 @@ export default async function NearbySearch(
   } catch (error) {
     console.error("Error fetching nearby places:", error);
     const result: Result = {
-      displayName: "",
-      photoUrl: "",
+      displayName: "Too picky :((",
+      photoUrl: "https://media1.tenor.com/m/t7_iTN0iYekAAAAd/sad-sad-cat.gif",
       rating: "",
       success: false,
     };
