@@ -15,6 +15,7 @@ interface Result {
   displayName: string;
   photoUrl: string;
   rating: string;
+  success: boolean;
 }
 
 interface Location {
@@ -23,14 +24,21 @@ interface Location {
 }
 
 export default async function NearbySearch(
-  cuisine: string,
-  rating: number,
-  price: string,
-  location: Location | null
+  cuisine: string[],
+  rating: number[],
+  price: string[],
+  location: Location | null,
+  dist: number
 ): Promise<Result> {
+  let includedTypes;
+  if (cuisine.length === 0) {
+    includedTypes = ["restaurant"];
+  } else {
+    includedTypes = cuisine;
+  }
   const apiKey = "AIzaSyAXpRKeA6lCOiYOwwnJbx7j9GUvBig8MLw";
   const request = {
-    includedTypes: [cuisine],
+    includedTypes: includedTypes,
     maxResultCount: 20,
     locationRestriction: {
       circle: {
@@ -38,7 +46,7 @@ export default async function NearbySearch(
           latitude: location?.latitude,
           longitude: location?.longitude,
         },
-        radius: 1000.0,
+        radius: dist,
       },
     },
   };
@@ -64,9 +72,19 @@ export default async function NearbySearch(
 
     const data = await response.json();
     const placesData: Place[] = data.places;
-    const filteredData = placesData.filter(
-      (place) => place.rating >= rating && place.priceLevel === price
-    );
+    let filteredData: Place[] = placesData;
+    console.log(price);
+    if (price.length !== 0) {
+      filteredData = filteredData.filter(
+        (place) => place.priceLevel && price.includes(place.priceLevel)
+      );
+    }
+
+    if (rating.length !== 0) {
+      filteredData = filteredData.filter(
+        (place) => place.rating >= Math.min(...rating)
+      );
+    }
 
     const randomIndex = Math.floor(Math.random() * filteredData.length);
 
@@ -80,10 +98,17 @@ export default async function NearbySearch(
       displayName: filteredData[randomIndex].displayName.text,
       photoUrl: imageURL,
       rating: filteredData[randomIndex].rating.toString(),
+      success: true,
     };
     return result;
   } catch (error) {
     console.error("Error fetching nearby places:", error);
-    throw error;
+    const result: Result = {
+      displayName: "",
+      photoUrl: "",
+      rating: "",
+      success: false,
+    };
+    return result;
   }
 }
