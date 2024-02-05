@@ -70,7 +70,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center p-8 mt-2">
       <Filters onFilterChange={handleFilterChange} />
-      <div className="shadow-2xl text-black font-bold pl-5 pr-5 pb-5 rounded-2xl flex flex-col items-center">
+      <div className="shadow-2xl text-gray-900 font-bold pl-5 pr-5 pb-5 rounded-2xl flex flex-col items-center">
         <div className="flex flex-col items-center">
           {" "}
           <header className="text-xl">{displayName}</header>
@@ -88,7 +88,7 @@ export default function Home() {
         />
         <button
           onClick={handleButtonClick}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-green-400/75 shadow-lg hover:bg-green-500/75 text-gray-900 font-bold py-2 px-4 rounded"
         >
           Roll the dice
         </button>

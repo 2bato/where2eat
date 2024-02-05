@@ -92,8 +92,8 @@ export default function Filters({ onFilterChange }: filterProps) {
           {ratingOptions.map((option) => (
             <button
               key={option}
-              className={`text-black text-sm rounded-2xl px-4 py-2 ${
-                ratings.includes(option) ? "bg-blue-500" : "bg-gray-50"
+              className={`text-gray-900 text-sm rounded-2xl px-4 py-2 ${
+                ratings.includes(option) ? "bg-green-400/75 shadow-lg" : "bg-gray-50"
               }`}
               onClick={() => {
                 handleRatingChange(option);
@@ -106,7 +106,7 @@ export default function Filters({ onFilterChange }: filterProps) {
           ))}
           <select
             onChange={handleDistChange}
-            className="focus:outline-none bg-gray-50 text-black text-sm rounded-2xl pl-2 py-2"
+            className="shadow-lg focus:outline-none bg-green-400/75 text-gray-900 text-sm rounded-2xl pl-2 py-2"
           >
             <option value="1000">1 km</option>
             <option value="500">500 m</option>
@@ -117,8 +117,8 @@ export default function Filters({ onFilterChange }: filterProps) {
           {priceOptions.map((option) => (
             <button
               key={option}
-              className={`text-black text-sm rounded-2xl px-4 py-2 ${
-                prices.includes(option) ? "bg-blue-500" : "bg-gray-50 "
+              className={`text-gray-900 text-sm rounded-2xl px-4 py-2 ${
+                prices.includes(option) ? "bg-green-400/75 shadow-lg" : "bg-gray-50 "
               }`}
               onClick={() => {
                 handlePriceChange(option);
@@ -136,8 +136,8 @@ export default function Filters({ onFilterChange }: filterProps) {
         {cuisineOptions.map((option) => (
           <button
             key={option}
-            className={`text-black text-sm rounded-2xl p-2.5 ${
-              cuisines.includes(option) ? "bg-blue-500" : "bg-gray-50 "
+            className={`text-gray-900 text-sm rounded-2xl p-2.5 ${
+              cuisines.includes(option) ? "bg-green-400/75 shadow-lg" : "bg-gray-50 "
             }`}
             onClick={() => {
               handleCuisineChange(option);
