@@ -16,8 +16,8 @@ export default function Home() {
     longitude: number;
   } | null>(null);
   const [fetchLocation, setFetchLocation] = useState<boolean>(true);
-  const [displayName, setDisplayName] = useState<string>("");
-  const [displayRating, setDisplayRating] = useState<string>("");
+  const [displayName, setDisplayName] = useState<string>("Placeholder");
+  const [displayRating, setDisplayRating] = useState<string>("4.3");
   const [displayPhoto, setDisplayPhoto] = useState<string>(
     "https://media1.tenor.com/m/GOabrbLMl4AAAAAd/plink-cat-plink.gif"
   );
@@ -57,25 +57,29 @@ export default function Home() {
     }
   }, [fetchLocation]);
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 text-white">
-      <div>
-        {" "}
-        {displayName} {displayRating}{" "}
+    <main className="flex min-h-screen flex-col items-center p-10 mt-10">
+      <Filters onFilterChange={handleFilterChange} />
+      <div className="bg-white text-black font-bold pl-5 pr-5 pb-5 rounded-2xl flex flex-col items-center">
+        <div className="flex flex-col items-center">
+          <header className="text-xl">{displayName}</header>
+          <header className="text-xl flex flex-row">
+            <div className="text-yellow-400 mr-2">★</div>{displayRating}
+          </header>
+        </div>
         <Image
           src={displayPhoto}
           alt="Image Description"
-          width={500}
-          height={500}
+          width={800}
+          height={800}
+          className="rounded-2xl m-4"
         />
+        <button
+          onClick={handleButtonClick}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Roll the dice
+        </button>
       </div>
-      <button
-        onClick={handleButtonClick}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Roll the dice
-      </button>
-      {location?.latitude},{location?.longitude}
-      <Filters onFilterChange={handleFilterChange} />
     </main>
   );
 }

@@ -31,7 +31,7 @@ export default async function NearbySearch(
   const apiKey = "AIzaSyAXpRKeA6lCOiYOwwnJbx7j9GUvBig8MLw";
   const request = {
     includedTypes: [cuisine],
-    maxResultCount: 10,
+    maxResultCount: 20,
     locationRestriction: {
       circle: {
         center: {
@@ -79,9 +79,8 @@ export default async function NearbySearch(
     const result: Result = {
       displayName: filteredData[randomIndex].displayName.text,
       photoUrl: imageURL,
-      rating: filteredData[randomIndex].toString(),
+      rating: filteredData[randomIndex].rating.toString(),
     };
-
     return result;
   } catch (error) {
     console.error("Error fetching nearby places:", error);

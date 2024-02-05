@@ -9,65 +9,97 @@ export default function Filters({ onFilterChange }: filterProps) {
   const [price, setPrice] = useState<string>("");
   const [cuisine, setCuisine] = useState<string>("");
 
-  const handleRatingChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newRating: number = parseInt(event.target.value, 10);
+  const handleRatingChange = (newRating: number) => {
     setRating(newRating);
     onFilterChange(newRating, price, cuisine);
   };
 
-  const handlePriceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newPrice: string = event.target.value;
+  const handlePriceChange = (newPrice: string) => {
     setPrice(newPrice);
     onFilterChange(rating, newPrice, cuisine);
   };
 
-  const handleCuisineChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newCuisine: string = event.target.value;
+  const handleCuisineChange = (newCuisine: string) => {
     setCuisine(newCuisine);
     onFilterChange(rating, price, newCuisine);
   };
-
+  const ratingOptions = [3, 4, 5];
+  const priceOptions = [
+    "PRICE_LEVEL_INEXPENSIVE",
+    "PRICE_LEVEL_MODERATE",
+    "PRICE_LEVEL_EXPENSIVE",
+    "PRICE_LEVEL_VERY_EXPENSIVE",
+  ];
+  const cuisineOptions = [
+    "thai_restaurant",
+    "chinese_restaurant",
+    "italian_restaurant",
+    "mexican_restaurant",
+    "japanese_restaurant",
+    "indian_restaurant",
+    "sushi_restaurant",
+    "sushi_restaurant",
+    "sushi_restaurant",
+    "sushi_restaurant",
+    "sushi_restaurant",
+    "sushi_restaurant",
+    "sushi_restaurant",
+    "sushi_restaurant",
+    "sushi_restaurant",
+    "sushi_restaurant",
+    "sushi_restaurant",
+    "sushi_restaurant",
+    "sushi_restaurant",
+    "sushi_restaurant",
+  ];
   return (
-    <div>
-      <label htmlFor="rating">Rating:</label>
-      <select
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        id="rating"
-        value={rating}
-        onChange={handleRatingChange}
-      >
-        <option value={3}>3</option>
-        <option value={4}>4</option>
-        <option value={5}>5</option>
-      </select>
-
-      <label htmlFor="price">Price:</label>
-      <select
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        id="price"
-        value={price}
-        onChange={handlePriceChange}
-      >
-        <option value={"PRICE_LEVEL_INEXPENSIVE"}>$</option>
-        <option value={"PRICE_LEVEL_MODERATE"}>$$</option>
-        <option value={"PRICE_LEVEL_EXPENSIVE"}>$$$</option>
-        <option value={"PRICE_LEVEL_VERY_EXPENSIVE"}>$$$$</option>
-      </select>
-
-      <label htmlFor="cuisine">Cuisine:</label>
-      <select
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        id="cuisine"
-        value={cuisine}
-        onChange={handleCuisineChange}
-      >
-        <option value="thai_restaurant">Thai</option>
-        <option value="chinese_restaurant">Chinese</option>
-        <option value="italian_restaurant">Italian</option>
-        <option value="mexican_restaurant">Mexican</option>
-        <option value="japanese_restaurant">Japanese</option>
-        <option value="indian_restaurant">Indian</option>
-      </select>
+    <div className="flex flex-col items-center mb-8 space-y-2">
+      <div className="space-y-2">
+        <div className="flex flex-row space-x-2">
+          {ratingOptions.map((option) => (
+            <button
+              key={option}
+              className={`text-black text-sm rounded-2xl px-5 py-2 ${
+                rating === option ? "bg-blue-500" : "bg-gray-50"
+              }`}
+              onClick={() => handleRatingChange(option)}
+            >
+              {option === 3 && "3 ★"}
+              {option === 4 && "4 ★"}
+              {option === 5 && "5 ★"}
+            </button>
+          ))}
+        </div>
+        <div className="flex flex-row justify-between">
+          {priceOptions.map((option) => (
+            <button
+              key={option}
+              className={`text-gray-900 text-sm rounded-2xl px-3 py-2 ${
+                price === option ? "bg-blue-500" : "bg-gray-50 "
+              }`}
+              onClick={() => handlePriceChange(option)}
+            >
+              {option === "PRICE_LEVEL_INEXPENSIVE" && "$"}
+              {option === "PRICE_LEVEL_MODERATE" && "$$"}
+              {option === "PRICE_LEVEL_EXPENSIVE" && "$$$"}
+              {option === "PRICE_LEVEL_VERY_EXPENSIVE" && "$$$$"}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className="flex flex-row overflow-x-scroll max-w-80">
+        {cuisineOptions.map((option) => (
+          <button
+            key={option}
+            className={`border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500 ${
+              cuisine === option ? "bg-blue-500" : "bg-gray-50 "
+            }`}
+            onClick={() => handleCuisineChange(option)}
+          >
+            {option.replace("_restaurant", "")}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
