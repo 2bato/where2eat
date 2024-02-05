@@ -8,6 +8,7 @@ interface Result {
   displayName: string;
   photoUrl: string;
   rating: string;
+  success: boolean;
 }
 
 export default function Home() {
@@ -16,32 +17,42 @@ export default function Home() {
     longitude: number;
   } | null>(null);
   const [fetchLocation, setFetchLocation] = useState<boolean>(true);
-  const [displayName, setDisplayName] = useState<string>("Placeholder");
-  const [displayRating, setDisplayRating] = useState<string>("4.3");
+  const [displayName, setDisplayName] = useState<string>("");
+  const [displayRating, setDisplayRating] = useState<string>("");
   const [displayPhoto, setDisplayPhoto] = useState<string>(
     "https://media1.tenor.com/m/GOabrbLMl4AAAAAd/plink-cat-plink.gif"
   );
-  const [rating, setRating] = useState<number>(0);
-  const [price, setPrice] = useState<string>("");
-  const [cuisine, setCuisine] = useState<string>("restaurant");
+  const [rating, setRating] = useState<number[]>([]);
+  const [price, setPrice] = useState<string[]>([]);
+  const [cuisine, setCuisine] = useState<string[]>([]);
+  const [dist, setDist] = useState<number>(1000);
+  const [success, setSuccess] = useState<boolean>(false);
 
   const handleButtonClick = async () => {
     setFetchLocation(true);
-    const result: Result = await NearbySearch(cuisine, rating, price, location);
+    const result: Result = await NearbySearch(
+      cuisine,
+      rating,
+      price,
+      location,
+      dist
+    );
     setDisplayName(result.displayName);
     setDisplayRating(result.rating);
     setDisplayPhoto(result.photoUrl);
-    console.log(displayName);
+    setSuccess(result.success);
   };
 
   const handleFilterChange = (
-    newRating: number,
-    newPrice: string,
-    newCuisine: string
+    newRating: number[],
+    newPrice: string[],
+    newCuisine: string[],
+    dist: number
   ) => {
     setRating(newRating);
     setPrice(newPrice);
     setCuisine(newCuisine);
+    setDist(dist);
   };
 
   useEffect(() => {
@@ -57,20 +68,22 @@ export default function Home() {
     }
   }, [fetchLocation]);
   return (
-    <main className="flex min-h-screen flex-col items-center p-10 mt-10">
+    <main className="flex min-h-screen flex-col items-center p-8 mt-2">
       <Filters onFilterChange={handleFilterChange} />
-      <div className="bg-white text-black font-bold pl-5 pr-5 pb-5 rounded-2xl flex flex-col items-center">
+      <div className="shadow-2xl text-black font-bold pl-5 pr-5 pb-5 rounded-2xl flex flex-col items-center">
         <div className="flex flex-col items-center">
+          {" "}
           <header className="text-xl">{displayName}</header>
           <header className="text-xl flex flex-row">
-            <div className="text-yellow-400 mr-2">★</div>{displayRating}
+            {success ? <div className="text-yellow-400 mr-2">★</div> : <></>}
+            {displayRating}
           </header>
         </div>
         <Image
           src={displayPhoto}
-          alt="Image Description"
-          width={800}
-          height={800}
+          alt="Restaurant image"
+          width={280}
+          height={300}
           className="rounded-2xl m-4"
         />
         <button
