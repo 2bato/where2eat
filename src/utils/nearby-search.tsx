@@ -1,3 +1,5 @@
+import { GOOGLE_API_KEY } from "../../config";
+
 interface displayName {
   text: string;
   languageCode: string;
