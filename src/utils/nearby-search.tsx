@@ -36,7 +36,7 @@ export default async function NearbySearch(
   } else {
     includedTypes = cuisine;
   }
-  const apiKey = process.env.GOOGLE_API_KEY;
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
   if (!apiKey) {
     throw new Error(
       "GOOGLE_API_KEY is missing. Please set the environment variable."
