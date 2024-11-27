@@ -1,5 +1,3 @@
-import { GOOGLE_API_KEY } from "../../config";
-
 interface displayName {
   text: string;
   languageCode: string;
@@ -38,7 +36,7 @@ export default async function NearbySearch(
   } else {
     includedTypes = cuisine;
   }
-  const apiKey = "AIzaSyAXpRKeA6lCOiYOwwnJbx7j9GUvBig8MLw";
+  const apiKey = process.env.GOOGLE_API_KEY;
   const request = {
     includedTypes: includedTypes,
     maxResultCount: 20,
@@ -94,7 +92,7 @@ export default async function NearbySearch(
     let photoReference = filteredData[randomIndex].photos[0].name;
     const index = photoReference.indexOf("photos/");
     photoReference = photoReference.substring(index + "photos/".length);
-    const imageURL = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=${apiKey}`;
+    const imageURL = `https://places.googleapis.com/v1/${photoReference}/media?maxHeightPx=400&maxWidthPx=400&key=${apiKey}`;
 
     const result: Result = {
       displayName: filteredData[randomIndex].displayName.text,
